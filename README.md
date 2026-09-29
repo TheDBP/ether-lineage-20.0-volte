@@ -108,6 +108,8 @@ Beyond the tuning, this build restores or adds:
 | Audio | working |
 | LEDs | rear cluster: notification pulse, charge gauge, boot chase |
 | Flashlight | working — driven through the CCI flash subdev, not the PMIC (`FLASHLIGHT.md`) |
+| Screen | 320 dpi with a 115% font scale, chosen for the 5.2" 1080p panel rather than upstream's 480 |
+| Volume panel | on the left and raised, so it sits beside this device's volume keys instead of centred |
 | LiveDisplay | colour calibration works; monochrome mode has no visible effect |
 | adb | USB (wireless via Developer options, as stock) |
 | Cellular | LTE data, SMS, visual voicemail, VoLTE (verified on T-Mobile US); no Wi-Fi calling or video calling — see *Known issues* |
@@ -202,17 +204,28 @@ published.
 One command, one image. Start with `clean` — it needs no inputs beyond the source.
 
 ```sh
-PRESET=clean ./forge/bootstrap.sh    # plain LineageOS + the tuning, nothing proprietary
-PRESET=libre ./forge/bootstrap.sh    # + F-Droid, Fulguris, K-9, the Nextcloud bundle, still no Google
-PRESET=full  ./forge/bootstrap.sh    # + GApps, root, Fulguris, F-Droid, K-9, the Nextcloud bundle
+PRESET=stock ./forge/bootstrap.sh    # the smallest thing that boots and works: device patches only
+PRESET=clean ./forge/bootstrap.sh    # plain LineageOS + the tuning and the shared set
+PRESET=libre ./forge/bootstrap.sh    # + F-Droid, K-9, KDE Connect, the Nextcloud bundle, ConnectBot
+PRESET=full  ./forge/bootstrap.sh    # the same, plus GApps
 PRESET=robin ./forge/bootstrap.sh    # the Nextbit look and root, no Google
 ```
 
+No preset ships a browser: `firefox` and `fulguris` both replace Jelly, so carrying one would leave
+the image with a single browser the user did not choose. Add one with `EXTRA_OPTIONS` if you want it.
+
 Output lands in `build_output/src/out/target/product/ether/`.
 
-`PRESET` names a saved set of options; `OPTIONS="root nav-icons"` picks them directly. `OPTIONS`
-**replaces** the list rather than adding to it — `COMMON_OPTIONS` is not merged in, so an ad-hoc set
-is the whole set.
+Three ways to choose what goes in, and the difference matters:
+
+| | effect |
+|---|---|
+| `PRESET=libre` | a saved set of options, plus the shared set |
+| `EXTRA_OPTIONS="oem root"` | **adds** to whichever preset you build, and appends each name to the tag |
+| `OPTIONS="root nav-icons"` | **replaces** the list entirely — the shared set is *not* merged in, so an ad-hoc set is the whole set |
+
+`PRESET=stock` is the exception: it is synthetic, takes only `STOCK_OPTIONS`, and ignores both the
+shared set and `EXTRA_OPTIONS`.
 
 Options live in the forge (`forge/options/`) and work the same on every device. What lives in this
 repo's `overlay/patches/` is only what is true of this phone.
@@ -289,6 +302,32 @@ work on any device rather than being wired into this tree.
 | `teal-wallpaper` | Teal-shag default wallpaper (baked into framework-res) |
 | `termoneplus` | TermOne Plus terminal emulator |
 | `themed-icons` | Themed (monochrome) app icons on by default |
+
+## The Linux environment
+
+The `linux` option only does the kernel half: it turns on the namespace and cgroup config a chroot and
+Docker need. The userland is a separate Magisk module, because it is ROM-independent and installing it
+should be a choice made on the phone rather than baked into an image.
+
+The module (`linux-chroot`, ~16 KB) is attached to each release. It ships scripts only — the Ubuntu
+Base rootfs is fetched on the device, since bundling ~30 MB of it in a ROM nobody may use is waste.
+
+1. Build or flash an image with the `linux` option on (every preset except `stock` has it).
+2. You need root. Either build with `root`, or install Magisk yourself.
+3. Install `linux-chroot-v*.zip` in Magisk and reboot.
+4. From a root shell — TermOne Plus is in the image if you built with `root`:
+
+```sh
+linux-setup     # downloads and unpacks Ubuntu Base into /data/linux, once
+linux           # enter the chroot
+lx-docker       # start dockerd inside it
+```
+
+Needs about 1.5 GB free in `/data` once you start installing packages. Mounts are set up on each
+`linux` call rather than at boot, so nothing runs until you ask for it.
+
+**Not yet verified on hardware.** The kernel config is in and the module installs, but the chroot has
+not been exercised on a Robin. Treat it as untested.
 
 ## Device patches
 
