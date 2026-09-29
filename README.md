@@ -1,7 +1,13 @@
 # ether-lineage-20.0-volte
 
-LineageOS 20.0 (Android 13) for the **Nextbit Robin** (`ether`, msm8992 / Snapdragon 808, 2016), with
-VoLTE working. `main` carries no build config; the build lives on
+**LineageOS 20.0 (Android 13) for the Nextbit Robin, and it can make phone calls again.**
+
+The Robin's voice calls went over 3G. US carriers finished shutting 3G down in 2022, and VoLTE on this
+hardware needs the IMS stack in its stock Nougat blobs — which use the binding Android 9 deleted. So
+every build on 9 or newer, 18.1 included, had data and SMS but no way to place a call. This one bridges
+that stack to Android 13's telephony framework. Calls work both ways with audio, verified on T-Mobile US.
+
+`ether` / msm8992 / Snapdragon 808, 2016. `main` carries no build config; the build lives on
 [`lineage-20.0-volte`](../../tree/lineage-20.0-volte).
 
 | | |
