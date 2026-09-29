@@ -329,8 +329,11 @@ The `linux` option only does the kernel half: it turns on the namespace and cgro
 Docker need. The userland is a separate Magisk module, because it is ROM-independent and installing it
 should be a choice made on the phone rather than baked into an image.
 
-The module (`linux-chroot`, ~16 KB) is attached to each release. It ships scripts only — the Ubuntu
-Base rootfs is fetched on the device, since bundling ~30 MB of it in a ROM nobody may use is waste.
+The module is published once, with rom-forge, rather than per ROM release — it is device-independent
+and survives ROM updates:
+**[linux-chroot v0.1](https://github.com/TheDBP/rom-forge/releases/tag/linux-chroot-v0.1)** (10 KB).
+It ships scripts only; the Ubuntu Base rootfs is fetched on the device, since bundling ~30 MB of it in
+a ROM nobody may use is waste.
 
 1. Build or flash an image with the `linux` option on (every preset except `stock` has it).
 2. You need root. Either build with `root`, or install Magisk yourself.
