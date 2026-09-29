@@ -2,6 +2,6 @@
 # Update with: ./forge/tools/sync-forge.sh [ref]
 url=https://github.com/TheDBP/rom-forge.git
 ref=main
-commit=7cbab7abb6e7a88293dd301cb78621df57d9b236
-subject=README: ether moves to per-version repos, and the series is 75 patches not 50
-synced=2026-09-29T17:26:21Z
+commit=4f9be05139b5aa74d792f031549d3e4235570949
+subject=bootstrap/release: pick the zip deterministically, and do not die linking a file to itself
+synced=2026-09-29T19:43:17Z
