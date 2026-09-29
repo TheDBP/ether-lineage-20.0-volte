@@ -678,7 +678,13 @@ This is unpaid work on phones their makers abandoned. If a build saved one from 
 
 Apache-2.0 — see `LICENSE`. The patches under `overlay/patches/` modify Apache-2.0 (AOSP/LineageOS) and GPL-2.0 (kernel) code and carry those licenses; `vendored/` keeps its upstream licenses.
 
-The kernel in every published image is GPL-2.0. Its complete corresponding source is the
-`mirror/android_kernel_nextbit_msm8992/lineage-18.1` branch of
-[ether-trees](https://github.com/TheDBP/ether-trees) with the five patches under
-`overlay/patches/kernel/nextbit/msm8992/` applied on top.
+The kernel in every published image is GPL-2.0, and its complete corresponding source is published
+as a normal kernel tree you can clone and build:
+[android_kernel_nextbit_msm8992](https://github.com/TheDBP/android_kernel_nextbit_msm8992), branch
+`lineage-20.0`. That branch is upstream LineageOS history with this device's six patches on top — a
+fork of upstream, so `git log lineage-18.1..lineage-20.0` or GitHub's compare view shows exactly what
+changed and nothing else. Each release is tagged there under the same tag as the ROM release.
+
+It is regenerated from `overlay/patches/kernel/nextbit/msm8992/` on every publish, so the published
+tree cannot drift from what the ROM was built with. The patch series here stays the only place the
+kernel is edited.
