@@ -1,4 +1,25 @@
-# Nextbit Robin — LineageOS 20.0 (Android 13)
+# Nextbit Robin — LineageOS 20.0 (Android 13), with VoLTE
+
+## It can make phone calls again
+
+That is the headline, and on this device in 2026 it is the whole point.
+
+The Robin is an LTE phone whose voice calls went over 3G. US carriers finished shutting 3G down in
+2022, so voice had to move to VoLTE — and VoLTE on this hardware runs through the IMS stack in its
+stock Nougat blobs, which implement `com.android.ims.internal.IImsService`, the binding Android 9
+deleted. Anything built on 9 or newer — including 18.1, the last official LineageOS for this phone —
+cannot talk to that stack at all. Once 3G went away that left no voice path: data and SMS worked, calls
+did not. A perfectly good phone became a tablet that happened to have a SIM slot.
+
+This build bridges that gap. `ImsBridge` presents a modern `ImsService` to Android 13 and delegates to
+the 7.1 stack the modem already speaks to, across a legacy AIDL surface generated from the stock binary
+and verified transaction-by-transaction on the wire. **Calls work, both ways, with audio, verified on
+T-Mobile US.** The full account is in [VOLTE-BRINGUP.md](VOLTE-BRINGUP.md).
+
+Other carriers are untested — the mechanism is not T-Mobile-specific, but nobody has tried it
+elsewhere. Wi-Fi calling does not work and cannot on this hardware; see *Known issues*.
+
+## The rest of it
 
 Android 13 on the **Nextbit Robin** (`ether`, Snapdragon 808 / msm8992, 2016). LineageOS never
 carried ether past 18.1, and the one 19.1 tree that existed was deleted from its host; this port
@@ -6,8 +27,7 @@ replays onto a copy of that tree recovered from Software Heritage (`vendored/`, 
 the `main` branch of [ether-trees](https://github.com/TheDBP/ether-trees)), and everything above it
 is new.
 
-**It boots and works.** WiFi, Bluetooth, camera, audio, adb, LTE data, SMS, visual voicemail, the
-flashlight and VoLTE all function. No Wi-Fi calling — see *Known issues* for what is still open.
+WiFi, Bluetooth, camera, audio, adb, LTE data, SMS, visual voicemail and the flashlight all work.
 
 ## What this build actually changes
 
