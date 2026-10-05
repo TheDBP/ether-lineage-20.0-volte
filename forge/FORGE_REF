@@ -2,6 +2,6 @@
 # Update with: ./forge/tools/sync-forge.sh [ref]
 url=https://github.com/TheDBP/rom-forge.git
 ref=main
-commit=c91277367c1697de937344f103874e7c251b91a5
-subject=tools: deodex-jar + gen-legacy-aidl (parameterized) + merge-legacy-classes -- rework an OEM legacy app for a newer Android
-synced=2026-10-05T03:46:58Z
+commit=6d001a2bbede8ab1b598afed13a95674b6ac05c7
+subject=tools: push-system-app.sh + app-fw-api-gap.py + runtime-bringup method doc (get a reworked OEM app to RUN)
+synced=2026-10-05T12:32:29Z
