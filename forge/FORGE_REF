@@ -4,4 +4,4 @@ url=https://github.com/TheDBP/rom-forge.git
 ref=main
 commit=6d001a2bbede8ab1b598afed13a95674b6ac05c7
 subject=tools: push-system-app.sh + app-fw-api-gap.py + runtime-bringup method doc (get a reworked OEM app to RUN)
-synced=2026-10-05T12:32:29Z
+synced=2026-10-05T17:48:38Z
