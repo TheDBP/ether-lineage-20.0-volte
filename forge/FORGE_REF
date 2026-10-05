@@ -2,6 +2,6 @@
 # Update with: ./forge/tools/sync-forge.sh [ref]
 url=https://github.com/TheDBP/rom-forge.git
 ref=main
-commit=94b3fdda5db5f88a266e2aca9e50b048f4482249
-subject=qmi-services.py idl: handle 64-bit IDL libraries
-synced=2026-10-05T00:54:35Z
+commit=898743dcce34ce83e19e018a128ccb1f963bfc0d
+subject=tools: fn-calls, oat-to-smali, modem-strings, sideload-flash; doc the OEM-app-to-modem trace
+synced=2026-10-05T01:10:15Z
