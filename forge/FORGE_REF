@@ -2,6 +2,6 @@
 # Update with: ./forge/tools/sync-forge.sh [ref]
 url=https://github.com/TheDBP/rom-forge.git
 ref=main
-commit=125332a4012383c421ebf7fecea2fb36c56836fd
-subject=qmi-services.py: idl mode decodes the TLV layout of every message in a QMI client lib
-synced=2026-10-05T00:32:51Z
+commit=94b3fdda5db5f88a266e2aca9e50b048f4482249
+subject=qmi-services.py idl: handle 64-bit IDL libraries
+synced=2026-10-05T00:54:35Z
