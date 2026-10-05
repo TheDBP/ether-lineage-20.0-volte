@@ -2,6 +2,6 @@
 # Update with: ./forge/tools/sync-forge.sh [ref]
 url=https://github.com/TheDBP/rom-forge.git
 ref=main
-commit=b2fb1f6093dc63bd5f8b070a2e1344cf8e139b6d
-subject=tools: modem-decompress.sh + modem-xrefs.py -- read q6zip-compressed modem code
-synced=2026-10-05T01:45:41Z
+commit=2a4e47455cd884f3c692a90fe6073ca60f73dcce
+subject=tools: dlopen-probe.sh -- prove an old vendor .so loads on-device (closure walk + stubs + shims)
+synced=2026-10-05T02:16:15Z
